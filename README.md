@@ -1,8 +1,17 @@
 # Emoji-Cuts
 
-Shortcuts for emojis! This script will allow you to write emojis slack-style on Mac OS programs like Messages.
+Shortcuts for emojis! This script will allow you to write emojis slack-style on Mac OS programs like Messages, Notes, and more.
 
-`bin/emoji-cut` creates all of the shortcuts for you; `bin/reset` will remove all of your aliases
+* `bin/emoji-cut` creates all of the shortcuts for you. If you run this command bare, it will add all of the emoji shortcuts for you. **Update:** If you want to add other aliases to your filesystem, you can feed a JSON file to this command, i.e. `bin/emoji-cut ./path/to/file.json`. The file must be formatted like so:
+
+```json
+{
+  "some-key": "some-value",
+  "another-key": "another-value"
+}
+```
+
+* `bin/reset` will remove all of your aliases
 
 ## Usage
 
