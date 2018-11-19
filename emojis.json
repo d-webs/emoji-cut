@@ -683,7 +683,7 @@
     "fitzpatrick_scale": true,
     "category": "people"
   },
-  "+1": {
+  "thumbsup": {
     "keywords": ["thumbsup", "yes", "awesome", "good", "agree", "accept", "cool", "hand", "like"],
     "char": "👍",
     "fitzpatrick_scale": true,

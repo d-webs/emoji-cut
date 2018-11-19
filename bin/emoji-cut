@@ -23,9 +23,9 @@ if __FILE__ == $PROGRAM_NAME
     abort('Invalid file path')
   else
     emoji_json = File.read('emojis.json')
-    emoji_map = JSON.parse(emoji_json).each { |k, v| }
-    emoji_map.each do |k, v|
-      emoji_map[k] = v['char']
+    emoji_map = JSON.parse(emoji_json)
+    emoji_map.keys.each do |k|
+      emoji_map[k] = emoji_map[k]['char']
     end
 
     adder = ShortcutAdder.new(emoji_map)
