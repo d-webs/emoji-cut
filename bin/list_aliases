@@ -3,6 +3,6 @@
 if __FILE__ == $PROGRAM_NAME
   items = `defaults read -g NSUserDictionaryReplacementItems`
   items.scan(/^\s*replace\s*=\s*(.*);\s*.*\s*with\s*=\s*(.*);/).each do |pair|
-    puts `#{pair[0]} => #{pair[1]}`
+    puts "#{pair[0]} => #{pair[1]}"
   end
 end

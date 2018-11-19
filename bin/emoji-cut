@@ -1,59 +1,35 @@
 #!/usr/bin/env ruby
 require 'json'
+require_relative '../lib/shortcut_adder'
 
-def check_compatibility!
-  print "Checking system..."
+def prompt
+  puts "Aliases sometimes get reset if this script is run with other (Apple) applications running, such as Messages or Notes."
+  print "Please verify that applications are closed (Y/n): "
 
-  sys_version = `uname -a`
+  input = gets.chomp.downcase
 
-  unless sys_version =~ /^Darwin/
-    abort("This script is unpermitted on this type of machine. Exiting.\n")
-  end
-
-  output = `defaults read-type -globalDomain NSUserDictionaryReplacementItems`
-  
-  unless output =~ /^Type/
-    abort("Missing required system compatibilities. Exiting.\n")
-  end
-
-  puts "Ok 👍"
-end
-
-def print_progress(cur, total)
-  _cur = cur / 20
-  _total = total / 20
-
-  prog = (['#'] * _cur).join
-  bar = (['-'] * ([_total - _cur - 1, 0].max)).join
-
-  print "\r|#{prog}#{bar}| #{cur * 100 / total}%".ljust(80)
-end
-
-
-def add_emoji_shortcut(key:, val:)
-  `defaults write -g NSUserDictionaryReplacementItems -array-add '{on=1;replace="#{key}";with="#{val}";}'` 
+  abort unless input == 'y'
 end
 
 if __FILE__ == $PROGRAM_NAME
-  check_compatibility!
+  prompt
+  path_to_file = ARGV[0]
 
-  puts "Adding shortcuts to your Libray 🤩"
+  if path_to_file && File.exists?(path_to_file)
+    shortcup_map = JSON.parse File.read(path_to_file)
+    adder = ShortcutAdder.new(shortcup_map)
+    adder.add_all!
+  elsif path_to_file
+    abort('Invalid file path')
+  else
+    emoji_json = File.read('emojis.json')
+    emoji_map = JSON.parse(emoji_json).each { |k, v| }
+    emoji_map.each do |k, v|
+      emoji_map[k] = v['char']
+    end
 
-  emojis = File.read('emojis.json')
-  emoji_map = JSON.parse(emojis)
-  emoji_count = emoji_map.keys.count
-
-  emoji_map.each_with_index do |(k, v), i|
-    emoji_key = ":#{k}:"
-    emoji_val = v['char']
-
-    add_emoji_shortcut key: emoji_key, val: emoji_val
-
-    print_progress(i, emoji_count)
+    adder = ShortcutAdder.new(emoji_map)
+    adder.add_all!
   end
-
-  puts
-  puts "\e[32mDone 🎉 To start using your new shortcuts, restart any relavant applications\n" \
-       "To view your shortcuts, run bin/list\e[0m"
 end
 
