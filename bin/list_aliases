@@ -1,8 +1,10 @@
 #!/usr/bin/env ruby
+require 'json'
 
 if __FILE__ == $PROGRAM_NAME
-  items = `defaults read -g NSUserDictionaryReplacementItems`
-  items.scan(/^\s*replace\s*=\s*(.*);\s*.*\s*with\s*=\s*(.*);/).each do |pair|
-    puts "#{pair[0]} => #{pair[1]}"
-  end
+	emojis = JSON.parse File.read('emojis.json')
+	
+	emojis.each do |k, v|
+		puts "#{k} => #{v['char']}"
+	end
 end
