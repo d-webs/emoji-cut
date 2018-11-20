@@ -4,7 +4,8 @@ Shortcuts for emojis! This script will allow you to write emojis slack-style on 
 
 **Before running the script, make sure Terminal is the only application running**
 
-* `bin/emoji-cut` creates all of the shortcuts for you. If you run this command bare, it will add all of the emoji shortcuts for you. **Update:** If you want to add other aliases to your filesystem, you can feed a JSON file to this command, i.e. `bin/emoji-cut ./path/to/file.json`. The file must be formatted like so:
+* `bin/emoji-cut` creates all of the shortcuts for you. If you run this command bare, it will add all of the emoji shortcuts for you. 
+* If you want to add other aliases to your filesystem, you can feed a JSON file to this command, i.e. `bin/emoji-cut ./path/to/file.json`. The file must be formatted like so:
 
 ```json
 {
@@ -12,7 +13,8 @@ Shortcuts for emojis! This script will allow you to write emojis slack-style on 
   "another-key": "another-value"
 }
 ```
-
+* To view a reference of all of your aliases, run `bin/list_aliases`
+* To lookup the alias for a specific emoji, run `bin/list_aliases | grep <emoji>`. Example: `bin/list_aliases | grep 🔥`
 * `bin/reset` will remove all of your aliases
 
 ## Usage
